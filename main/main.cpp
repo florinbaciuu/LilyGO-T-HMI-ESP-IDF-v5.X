@@ -19,6 +19,9 @@ extern "C" {
 #include "i80_parallel_bsp_interface.h"
 #include "lcd_bsp_interface.h"
 
+#include "filesystem.h"
+#include "esp32-cmd-cli.h"
+
 }
 /**********************
  *   GLOBAL VARIABLES
@@ -105,21 +108,15 @@ extern "C" void app_main(void) {
     esp_log_level_set("*", ESP_LOG_INFO);
 
     lvgl_bsp_framework_init();
-
     bsp_lcd_init();        // Inițializare LCD
     bsp_touchscreen_init();  // Inițializare touch
-
-    
-    
     vTaskDelay(500);
-
-
     lvgl_bsp_kernel_start();      // Start the LVGL kernel and tasks
     lvgl_execute_locked([]() {
         create_tabs_ui();
     });
 
+    init_filesystem_sys();  // Inițializare sistem de fișiere
+    start_cli_task(); // Start the command line interface task
 }
-
-// git pull
 

@@ -1,6 +1,4 @@
-
 #pragma once
-
 
 #define CONSOLE_MAX_CMDLINE_ARGS (8)
 #define CONSOLE_MAX_CMDLINE_LENGTH (256)
@@ -54,3 +52,7 @@
 #endif
 
 extern char prompt[CONSOLE_PROMPT_MAX_LEN];
+
+//extern int linenoiseHistoryMaxLen;
+
+#define LINENOISE_MAX_LINE_LEN (100)

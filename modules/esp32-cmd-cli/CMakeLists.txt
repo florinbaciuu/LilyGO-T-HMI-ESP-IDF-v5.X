@@ -59,15 +59,11 @@ set(modules_priv_includes
 
 idf_component_register(
     SRCS
-    "src/one-cli.c"
-    "src/init.c"
-    "src/config.c"
+    "esp32-cmd-cli.c"
     ${modules_srcs}
     ## ------------------
     INCLUDE_DIRS
-    "include"
     "modules"
-    "src"
     "."
     ${modules_includes}
     ## ------------------
@@ -114,7 +110,7 @@ set( # Asta adaug-o separat:
 # dezactivează tratarea warningurilor ca erori pentru componenta asta
 target_compile_options(${COMPONENT_LIB} PRIVATE -Wno-error -Wno-error=type-limits -Wno-unused-variable -Wno-unused-function -Wno-error=cpp)
 set_source_files_properties(
-    src/init.c src/one-cli.c
+    esp32-cmd-cli.c
     PROPERTIES COMPILE_FLAGS "-Wno-error=cpp -Wno-error"
 )
 

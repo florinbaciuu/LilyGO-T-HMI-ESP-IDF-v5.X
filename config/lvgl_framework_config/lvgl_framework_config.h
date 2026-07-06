@@ -13,7 +13,7 @@
 #define DISPLAY_ROTATION_180 180
 #define DISPLAY_ROTATION_270 270
 
-#define LVGL_DISPLAY_PANEL_ROTATION (DISPLAY_ROTATION_90)
+#define LVGL_DISPLAY_PANEL_ROTATION (DISPLAY_ROTATION_0)
 
 //-----------------------------------------------------------
 #define LV_TICK_SOURCE_TIMER    0
@@ -50,7 +50,7 @@
 #define BUFFER_INTERNAL 1
 #define BUFFER_SPIRAM   2
 #define BUFFER_MEM      BUFFER_SPIRAM
-#if (BUFFER_MEM == BUFFER_INTERNAL)
+#if (BUFFER_MEM == BUFFER_SPIRAM)
 #    define DMA_ON (true)
 #endif /* #if (BUFFER_MEM == BUFFER_INTERNAL) */
 //---------

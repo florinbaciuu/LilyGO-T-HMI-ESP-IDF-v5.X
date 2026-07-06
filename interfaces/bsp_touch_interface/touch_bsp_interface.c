@@ -99,6 +99,7 @@ void touch_io_config() {
                                                                .sio_mode             = 0,
                                                                .lsb_first            = 0,
                                                                .cs_high_active       = 0}};
+    ESP_LOGI(TAG, "Configuring SPI bus for touch with CS GPIO: %d", PIN_NUM_CS);
     ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(SPI2_HOST, &touch_io_config, &touch_io_handle));
     ESP_LOGI("LVGL", "Touch panel IO created");
 }
@@ -127,4 +128,5 @@ void bsp_touchscreen_init(void) {
     spi_bus_config();
     touch_io_config();
     touch_panel_config();
+    ESP_LOGI(TAG, "Touchscreen BSP initialization done");
 }

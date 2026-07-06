@@ -23,6 +23,7 @@ void spi_bus_config() {
         .flags                              = (int) 0,
         .isr_cpu_id                         = (esp_intr_cpu_affinity_t) 0,
         .intr_flags                         = (int) 0};
+    ESP_LOGI(TAG, "Initializing SPI bus with MOSI: %d, MISO: %d, CLK: %d", PIN_NUM_MOSI, PIN_NUM_MISO, PIN_NUM_CLK);
     ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO));
     ESP_LOGI(TAG, "SPI bus initialized");
 }

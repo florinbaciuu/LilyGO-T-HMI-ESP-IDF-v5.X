@@ -13,13 +13,11 @@
 #include "esp_lcd_panel_st7789.h"  // Sau driverul real folosit de tine
 #include "i80_parallel_bsp_interface.h"
 
-
+static const char* TAG = "ST7789";
 //================================================================
 
 esp_lcd_panel_io_handle_t lcd_io_handle   = NULL;
-
 esp_lcd_panel_handle_t    panel_handle    = NULL;
-
 lv_display_t* disp;  // Display LVGL
 
 //================================================================
@@ -27,9 +25,6 @@ lv_display_t* disp;  // Display LVGL
 /**********************
  *   DISPLAY FUNCTIONS
  **********************/
-
-
-
 // ------------------------
 void display_io_i80_config() {
     esp_lcd_panel_io_i80_config_t lcd_io_config = {
@@ -58,6 +53,7 @@ void display_io_i80_config() {
         },
     };
     ESP_ERROR_CHECK(esp_lcd_new_panel_io_i80(i80_bus, &lcd_io_config, &lcd_io_handle));
+    ESP_LOGI(TAG, "I80 bus IO configured successfully");
 }
 //========================================
 
@@ -74,21 +70,21 @@ void display_panel_config() {
         .vendor_config = NULL,
     };
     ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(lcd_io_handle, &panel_config, &panel_handle));
-    ESP_LOGI("LVGL", "ST7789 panel created");
+    ESP_LOGI(TAG, "ST7789 panel created");
     ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
-    ESP_LOGI("LVGL", "ST7789 panel reset done");
+    ESP_LOGI(TAG, "ST7789 panel reset done");
     ESP_ERROR_CHECK(esp_lcd_panel_set_gap(panel_handle, 0, 0));
-    ESP_LOGI("LVGL", "ST7789 panel gap set");
+    ESP_LOGI(TAG, "ST7789 panel gap set");
     ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
-    ESP_LOGI("LVGL", "ST7789 panel initialized");
+    ESP_LOGI(TAG, "ST7789 panel initialized");
     ESP_ERROR_CHECK(esp_lcd_panel_invert_color(panel_handle, false));
-    ESP_LOGI("LVGL", "ST7789 panel color inversion set");
+    ESP_LOGI(TAG, "ST7789 panel color inversion set");
     ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, false, true));
-    ESP_LOGI("LVGL", "ST7789 panel mirror set");
+    ESP_LOGI(TAG, "ST7789 panel mirror set");
     ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, true));
-    ESP_LOGI("LVGL", "ST7789 panel swap xy set %bool", true);
+    ESP_LOGI(TAG, "ST7789 panel swap xy set %bool", true);
     ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_handle, true));
-    ESP_LOGI("LVGL", "ST7789 panel display on");
+    ESP_LOGI(TAG, "ST7789 panel display on");
 }
 //========================================
 bool panel_io_trans_done_callback(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t* edata, void* user_ctx) {
@@ -105,4 +101,5 @@ void bsp_lcd_init() {
     display_bus_config();
     display_io_i80_config();
     display_panel_config();
+    ESP_LOGI(TAG, "LCD BSP initialization done");
 }

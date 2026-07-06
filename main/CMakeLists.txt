@@ -14,8 +14,10 @@ set(app_include_dirs
 
 set(app_requires
     freertos
+    filesystem
     littlefs
     lvgl
+    esp32-cmd-cli
 )
 set(app_priv_requires
     ${app_requires}
