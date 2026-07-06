@@ -173,6 +173,7 @@ void cli_set_history_path(const char* path) {
 static const char cli_task_name[] = "CLI Task";
 static const uint32_t CLI_TASK_STACK_SIZE = 8192;
 static const BaseType_t cli_task_priority = tskIDLE_PRIORITY + 3;
+static TaskHandle_t s_cli_task_handle;
 static const BaseType_t cli_task_core = 0; // Run on core 0
 
 void console_app_func(void* parameter) {
@@ -181,7 +182,7 @@ void console_app_func(void* parameter) {
     initialize_console_peripheral(); // Initialize console output periheral (UART, USB_OTG, USB_JTAG)
     initialize_console_library(s_history_path); // Initialize linenoise library and esp_console
     const char* prompt = setup_prompt(PROMPT_STR ">"); // Prompt to be printed before each line. This can be customized, made dynamic, etc.
-    vTaskDelay(10);
+    vTaskDelay(pdMS_TO_TICKS(10));
     esp_console_register_help_command(); // IDF help command
     cli_register_all_commands();  // Register my commands
     // vTaskDelay(300);
@@ -191,7 +192,6 @@ void console_app_func(void* parameter) {
 #if CONFIG_CONSOLE_IGNORE_EMPTY_LINES
         if (line == NULL) { // Ignore empty lines
             continue;
-            ;
         }
 #else
         if (line == NULL) { // Break on EOF or error
@@ -227,14 +227,14 @@ void console_app_func(void* parameter) {
 
 void start_cli_task()
 {
-    if (xHandle__CLI == NULL) {
+    if (s_cli_task_handle == NULL) {
         xTaskCreatePinnedToCore(console_app_func,         // Functia care ruleaza task-ul
             (const char*) cli_task_name,                // Numele task-ului
             (uint32_t) (CLI_TASK_STACK_SIZE),                       // Dimensiunea stack-ului
             (NULL),                                  // Parametri
             // (UBaseType_t) configMAX_PRIORITIES - 7,  // Prioritatea task-ului.  // PREA MULT ATENTIE
             (UBaseType_t) cli_task_priority,  // Prioritatea task-ului
-            &xHandle__CLI,  // Handle-ul task-ului
+            &s_cli_task_handle,  // Handle-ul task-ului
             ((cli_task_core))           // Nucleul pe care ruleaza (ESP32 e dual-core)
         );
     }
