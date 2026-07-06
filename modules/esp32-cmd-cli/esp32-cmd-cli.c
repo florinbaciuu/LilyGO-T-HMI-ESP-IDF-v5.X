@@ -3,6 +3,17 @@
  * Code c
  */
 
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include "esp_system.h"
+#include "esp_log.h"
+#include "esp_console.h"
+#include "linenoise/linenoise.h"
+#include "argtable3/argtable3.h"
+#include "driver/usb_serial_jtag.h"
+#include "driver/usb_serial_jtag_vfs.h"
+
 #include "esp32-cmd-cli.h"
 #include "banner.h"
 #include "modules.h"
@@ -156,17 +167,6 @@ void printStartupMessage() {
 
 static char s_history_path[64] = MOUNT_PATH "/history.txt"; // Variabilă globală pentru path-ul istoriei
 
-void cli_set_history_path(const char* path) {
-    if (path == NULL) {
-        ESP_LOGW(TAG, "No history path provided, using default: %s", s_history_path);
-        return;
-    }
-    strncpy(s_history_path, path, sizeof(s_history_path) - 1);
-    s_history_path[sizeof(s_history_path) - 1] = '\0';
-    ESP_LOGI(TAG, "History path set to: %s", s_history_path);
-}
-
-
 /********************************************** */
 /*                   TASK                       */
 /********************************************** */
@@ -232,7 +232,6 @@ void start_cli_task()
             (const char*) cli_task_name,                // Numele task-ului
             (uint32_t) (CLI_TASK_STACK_SIZE),                       // Dimensiunea stack-ului
             (NULL),                                  // Parametri
-            // (UBaseType_t) configMAX_PRIORITIES - 7,  // Prioritatea task-ului.  // PREA MULT ATENTIE
             (UBaseType_t) cli_task_priority,  // Prioritatea task-ului
             &s_cli_task_handle,  // Handle-ul task-ului
             ((cli_task_core))           // Nucleul pe care ruleaza (ESP32 e dual-core)

@@ -71,12 +71,6 @@ idf_component_register(
     ${modules_priv_includes}
     ## ------------------
     REQUIRES
-    perfmon
-    esp_common
-    driver
-    console
-    log
-
     ## ------------------
     PRIV_REQUIRES
     perfmon
@@ -94,6 +88,11 @@ idf_component_register(
     nvs_flash
     esp_wifi
     esp_driver_usb_serial_jtag
+    perfmon
+    esp_common
+    driver
+    console
+    log
 )
 
 

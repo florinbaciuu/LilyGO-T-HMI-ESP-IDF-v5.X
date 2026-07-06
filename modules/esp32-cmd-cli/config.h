@@ -8,7 +8,8 @@
 #define CONFIG_CONSOLE_IGNORE_EMPTY_LINES (1)
 #define PROMPT_STR CONFIG_IDF_TARGET
 
-
+#define MY_ESP_CONSOLE_CONFIG_DEFAULT() \
+    {.max_cmdline_length = 256, .max_cmdline_args = 32, .heap_alloc_caps = MALLOC_CAP_DEFAULT, .hint_color = 39, .hint_bold = 0}
 
 /**
  * SETTINGS
