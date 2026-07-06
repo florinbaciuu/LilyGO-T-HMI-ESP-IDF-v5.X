@@ -20,8 +20,8 @@ extern "C" {
 #define BOARD_TFT_CS       (6)                 // GPIO pin for TFT chip select
 #define BOARD_TFT_DC       (7)                 // GPIO pin for TFT data/command control
 #define BOARD_TFT_WR       (8)                 // GPIO pin for TFT write control
-#define LCD_WIDTH          (320)               // Width of the LCD in pixels
-#define LCD_HEIGHT         (240)               // Height of the LCD in pixels
+#define LCD_WIDTH          (240)               // Width of the LCD in pixels
+#define LCD_HEIGHT         (320)               // Height of the LCD in pixels
 #define LCD_PIXEL_CLOCK_HZ (10 * 1000 * 1000)  // LCD pixel clock frequency in Hz
 #define BOARD_TFT_BL       (38)                // GPIO pin for backlight control
 #define PWR_EN_PIN         (10)                // connected to the battery alone

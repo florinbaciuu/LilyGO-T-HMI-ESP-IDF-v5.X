@@ -6,12 +6,14 @@
 //===========================
 // LVGL Panel Rotation
 
+#define LILYGO_T_HMI_ESP_IDF_V5_X 1
+
 #define DISPLAY_ROTATION_0   0
 #define DISPLAY_ROTATION_90  90
 #define DISPLAY_ROTATION_180 180
 #define DISPLAY_ROTATION_270 270
 
-#define LVGL_DISPLAY_PANEL_ROTATION (DISPLAY_ROTATION_0)
+#define LVGL_DISPLAY_PANEL_ROTATION (DISPLAY_ROTATION_90)
 
 //-----------------------------------------------------------
 #define LV_TICK_SOURCE_TIMER    0

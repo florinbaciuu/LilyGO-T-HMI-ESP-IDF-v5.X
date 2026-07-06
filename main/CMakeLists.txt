@@ -5,7 +5,6 @@ cmake_minimum_required(VERSION 3.5)
 # Set usual component variables
 set(app_sources
     "main.cpp"
-    "lvgl_port.c"
 )
 
 set(app_include_dirs
@@ -27,6 +26,7 @@ set(app_priv_requires
     board_pins
     esp_lcd
     lvgl_framework_config
+    bsp_lvgl_framework
 )
 
 # Set my components

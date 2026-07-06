@@ -8,12 +8,11 @@ extern "C" {
 #include "lvgl_framework_config.h" 
 #include "board_pins.h"
 #include "board_config.h"
-
+#include "lvgl_framework.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
 #include "driver/gpio.h"
-#include "lvgl_port.h"
 #include "ui.h"
 
 #include "touch_bsp_interface.h"
@@ -86,13 +85,7 @@ void chechButton0State(void* parameter) {
 /********************************************** */
 /*                   TASK                       */
 /********************************************** */
-void lv_ui_task(void* arg) {
-    // s_lvgl_lock(portMAX_DELAY);
-    s_lvgl_lock(portMAX_DELAY);
-    create_tabs_ui();
-    s_lvgl_unlock();
-    vTaskDelete(NULL);  // moare dupa creare
-}
+
 
 //--------------------------------------
 
@@ -111,39 +104,24 @@ extern "C" void app_main(void) {
     gfx_set_backlight(1);
     esp_log_level_set("*", ESP_LOG_INFO);
 
-    s_lvgl_port_init();
+    lvgl_framework_init();
 
     display_bus_config();
     display_io_i80_config();
     display_panel_config();
 
     bsp_touchscreen_init();  // Inițializare touch
+
+    
     
     vTaskDelay(500);
 
-    //init_filesystem_sys();
-    //Start_THMI_CLI(); // Include task FreeRTOS
 
-    create_and_start_lvgl_tasks(); // freetos tasks for lvgl
+    lvgl_kernel_start();      // Start the LVGL kernel and tasks
+    lvgl_execute_locked([]() {
+        create_tabs_ui();
+    });
 
-    xTaskCreatePinnedToCore(lv_ui_task,  // Functia care ruleaza task-ul
-        (const char*) "ui_task",         // Numele task-ului
-        (uint32_t) (4096),               // Dimensiunea stack-ului
-        (NULL),                          // Parametri
-        (UBaseType_t) 4,                 // Prioritatea task-ului // 6
-        NULL,                            // Handle-ul task-ului
-        ((1))                            // Nucleul pe care ruleaza (ESP32 e dual-core)
-    );
-
-    xTaskCreatePinnedToCore(chechButton0State,  // Functia care ruleaza task-ul
-        (const char*) "v_check_0_pin_state",    // Numele task-ului
-        (uint32_t) (4096),                      // Dimensiunea stack-ului
-        (NULL),                                 // Parametri
-        (UBaseType_t) 3,                        // Prioritatea task-ului // 6
-        &xHandle_chechButton0State,             // Handle-ul task-ului
-        ((1))                                   // Nucleul pe care ruleaza (ESP32 e dual-core)
-    );
-    esp_rom_delay_us(100);
 }
 
 // git pull

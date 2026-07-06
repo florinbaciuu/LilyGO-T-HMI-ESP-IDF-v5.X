@@ -27,7 +27,7 @@ add_compile_options(
 )
 
 # ---------- LVGL config -------------
-set(LV_CONF_PATH "${CMAKE_SOURCE_DIR}/main/lv_conf.h")
+set(LV_CONF_PATH "${CMAKE_SOURCE_DIR}/config/lv_conf.h")
 add_compile_definitions(LV_CONF_PATH="${LV_CONF_PATH}")
 add_compile_definitions(LVGL_VERSION_MAJOR=9)
 
@@ -35,9 +35,8 @@ add_compile_definitions(LVGL_VERSION_MAJOR=9)
 # Seteaza folder extra pt componente
 set(EXTRA_COMPONENT_DIRS
     modules
-#    drivers
-    configs
-#    frameworks
+    config
+    frameworks
     interfaces
 )
 

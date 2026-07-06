@@ -1,34 +1,38 @@
 
 
 set(
-    srcs 
-    "touch_bsp_interface.c"
+    srcs
+    "bsp_lvgl_framework.c"
+    "bsp_lvgl_rotation.c"
+    "bsp_lvgl_freertos_utils.c"
+    "bsp_lvgl_mutex_utils.c"
+    "bsp_lvgl_indev.c"
+    "bsp_lvgl_buffers.c"
 )
 
 set(
     include_dirs
     "."
+    "include"
 )
 
 set(
     requires
-    esp_lcd_touch
 )
 
 set(
     priv_requires
     newlib
-    
+    esp_lcd
     esp_system
     esp_common
     log
+    lvgl_framework_config
     board_pins
     board_config
-    bsp_spi_interface
-    esp_lcd
-    esp_lcd_touch
-    esp_lcd_touch_xpt2046
-    
+    lvgl
+    bsp_lcd_interface
+    bsp_touch_interface
 )
 
 idf_component_register(
