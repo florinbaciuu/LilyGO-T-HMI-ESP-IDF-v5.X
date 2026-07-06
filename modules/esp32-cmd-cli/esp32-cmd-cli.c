@@ -170,10 +170,10 @@ void cli_set_history_path(const char* path) {
 /********************************************** */
 /*                   TASK                       */
 /********************************************** */
-char cli_task_name[9] = "CLI Task";
-uint32_t cli_task_stack_size = 8192;
-const BaseType_t cli_task_priority = tskIDLE_PRIORITY + 3;
-const BaseType_t cli_task_core = 0; // Run on core 0
+static const char cli_task_name[] = "CLI Task";
+static const uint32_t CLI_TASK_STACK_SIZE = 8192;
+static const BaseType_t cli_task_priority = tskIDLE_PRIORITY + 3;
+static const BaseType_t cli_task_core = 0; // Run on core 0
 
 void console_app_func(void* parameter) {
     (void) parameter;
@@ -230,7 +230,7 @@ void start_cli_task()
     if (xHandle__CLI == NULL) {
         xTaskCreatePinnedToCore(console_app_func,         // Functia care ruleaza task-ul
             (const char*) cli_task_name,                // Numele task-ului
-            (uint32_t) (cli_task_stack_size),                       // Dimensiunea stack-ului
+            (uint32_t) (CLI_TASK_STACK_SIZE),                       // Dimensiunea stack-ului
             (NULL),                                  // Parametri
             // (UBaseType_t) configMAX_PRIORITIES - 7,  // Prioritatea task-ului.  // PREA MULT ATENTIE
             (UBaseType_t) cli_task_priority,  // Prioritatea task-ului
