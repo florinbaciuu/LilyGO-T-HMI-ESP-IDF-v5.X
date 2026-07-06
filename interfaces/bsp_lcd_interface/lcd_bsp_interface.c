@@ -60,6 +60,8 @@ void display_io_i80_config() {
     ESP_ERROR_CHECK(esp_lcd_new_panel_io_i80(i80_bus, &lcd_io_config, &lcd_io_handle));
 }
 //========================================
+
+//========================================
 void display_panel_config() {
     esp_lcd_panel_dev_config_t panel_config = {
         .reset_gpio_num = (gpio_num_t) BOARD_TFT_RST,
@@ -98,3 +100,9 @@ bool panel_io_trans_done_callback(esp_lcd_panel_io_handle_t panel_io, esp_lcd_pa
     return false;
 }
 //===============================================
+
+void bsp_lcd_init() {
+    display_bus_config();
+    display_io_i80_config();
+    display_panel_config();
+}

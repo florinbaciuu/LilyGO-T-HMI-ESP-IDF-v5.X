@@ -50,7 +50,7 @@ void s_lvgl_display_panel_setup_config_properties() {
 
 //===========================================//
 
-void lvgl_framework_init(void) {
+void lvgl_bsp_framework_init(void) {
     lv_init();
 #if LV_TICK_SOURCE == LV_TICK_SOURCE_CALLBACK
     // Next function comment because create problems with lvgl timers and esp32 timers

@@ -123,7 +123,7 @@ void lv_main_task(void* parameter) {
 
 /************************************************** */
 
-void lvgl_kernel_start(void) {
+void lvgl_bsp_kernel_start(void) {
     // =================================================================================================
     s_lvgl_display_panel_set_initial_rotation_config();
     static bool started = false;

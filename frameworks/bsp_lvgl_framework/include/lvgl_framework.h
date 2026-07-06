@@ -14,7 +14,7 @@ extern "C" {
 
 //+++++++++++++++++++++++++++++++++++++++//
 
-void lvgl_framework_init(void);
+void lvgl_bsp_framework_init(void);
 
 //+++++++++++++++++++++++++++++++++++++++//
 
@@ -25,7 +25,7 @@ void lvgl_framework_init(void);
  * It uses a static variable to ensure that the initialization code is only executed once, preventing multiple initializations
  * if the function is called multiple times.
  */
-void lvgl_kernel_start(void);
+void lvgl_bsp_kernel_start(void);
 
 //+++++++++++++++++++++++++++++++++++++++//
 

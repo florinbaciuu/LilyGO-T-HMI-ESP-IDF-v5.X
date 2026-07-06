@@ -12,13 +12,6 @@ static const char* TAG = "Touchscreen BSP";
 esp_lcd_panel_io_handle_t touch_io_handle = NULL;
 esp_lcd_touch_handle_t    touch_handle    = NULL;
 
-void bsp_touchscreen_init(void) {
-    spi_bus_config();
-    touch_io_config();
-    touch_panel_config();
-}
-
-
 /**********************
  *   TOUCH DRIVER VARIABLES
  **********************/
@@ -129,3 +122,9 @@ void touch_panel_config() {
 }
 
 // ==================================================
+
+void bsp_touchscreen_init(void) {
+    spi_bus_config();
+    touch_io_config();
+    touch_panel_config();
+}

@@ -95,7 +95,6 @@ void s_lvgl_input_device_config() {
     // lv_indev_set_read_cb(indev, lv_touchpad_read_v3);   // new version, with more aggressive smoothing, no more jitter at the cost of a bit of responsiveness
 
     ESP_LOGI("LVGL", "LVGL input device configured");
-    ESP_LOGI("LVGL", "LVGL Setup done");
 }
 
 //===========================================//

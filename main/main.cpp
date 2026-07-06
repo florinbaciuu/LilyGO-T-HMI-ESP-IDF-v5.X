@@ -104,12 +104,9 @@ extern "C" void app_main(void) {
     gfx_set_backlight(1);
     esp_log_level_set("*", ESP_LOG_INFO);
 
-    lvgl_framework_init();
+    lvgl_bsp_framework_init();
 
-    display_bus_config();
-    display_io_i80_config();
-    display_panel_config();
-
+    bsp_lcd_init();        // Inițializare LCD
     bsp_touchscreen_init();  // Inițializare touch
 
     
@@ -117,7 +114,7 @@ extern "C" void app_main(void) {
     vTaskDelay(500);
 
 
-    lvgl_kernel_start();      // Start the LVGL kernel and tasks
+    lvgl_bsp_kernel_start();      // Start the LVGL kernel and tasks
     lvgl_execute_locked([]() {
         create_tabs_ui();
     });
